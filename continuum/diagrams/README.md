@@ -8,6 +8,8 @@ Start with ownership, then use the flow diagrams when changing import or playbac
 | Confirmed MP3 import | Where are files confirmed, imported, persisted, and reported back for retry? | [SVG](02-mp3-import.svg) · [PNG](02-mp3-import.png) · [checks](02-mp3-import-check.md) | Verified editable SVG |
 | Playback flow | Where are track selection, queue advancement, audio transport, and spectrum analysis handled? | [SVG](03-playback-flow.svg) · [PNG](03-playback-flow.png) · [checks](03-playback-flow-check.md) | Verified editable SVG |
 
+| Windows playback technology | Which libraries and Windows APIs decode and play MP3s, and what does Signal Amp implement itself? | [SVG](04-windows-audio-technology.svg) · [PNG](04-windows-audio-technology.png) · [checks](04-windows-audio-technology-check.md) | Conceptual. All claims passed semantic fidelity, with one visual-integrity finding. |
+
 ## Where to start in code
 
 - **DesktopShell** owns queue state and advances after normal completion. See [PlayerWindow.cs](../../PlayerWindow.cs), [ArtworkSkin.cs](../../ArtworkSkin.cs), [ImportSkin.cs](../../ImportSkin.cs) and [PlaylistSkin.cs](../../PlaylistSkin.cs).
