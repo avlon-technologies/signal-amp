@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1536" height="1024" viewBox="0 0 1536 1024" font-family="Inter, 'Segoe UI', Arial, sans-serif">
+<title>Signal Amp MVP — playback flow</title>
+<desc>DesktopShell owns the queue and presentation. An inferred chosen-track handoff reaches PlayTrack, handled by Playback. Playback publishes PlaybackStateChanged, received by DesktopShell as an in-process notification.</desc>
+<defs>
+<marker id="arrow" markerWidth="14" markerHeight="14" refX="13" refY="7" orient="auto" markerUnits="userSpaceOnUse"><path d="M 0 0 L 13 7 L 0 14 Z" fill="#223346"/></marker>
+<marker id="weak" markerWidth="13" markerHeight="13" refX="12" refY="6.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M 0 0 L 12 6.5 L 0 13 Z" fill="#647789"/></marker>
+</defs>
+<rect x="0" y="0" width="1536" height="1024" fill="#FFFFFF"/>
+<text x="768" y="73" text-anchor="middle" font-size="48" font-weight="750" fill="#080F1B">Signal Amp MVP — playback flow</text>
+<text x="768" y="121" text-anchor="middle" font-size="26" fill="#475366">DesktopShell owns the queue; Playback owns transport and spectrum analysis.</text>
+
+<g class="domain" data-label="UserInterface" data-grade="declared">
+<rect x="20" y="180" width="440" height="558" rx="14" fill="#E8F5FE" stroke="#329DF0" stroke-width="3"/>
+<text x="43" y="230" font-size="35" font-weight="700" fill="#103F91">UserInterface</text>
+<text x="43" y="263" font-size="23" fill="#475366">Queue and presentation</text>
+<g class="service" data-label="DesktopShell" data-grade="declared">
+<rect x="40" y="312" width="312" height="328" rx="17" fill="#DAEEFC" stroke="#087ED5" stroke-width="2.5"/>
+<text x="62" y="361" font-size="30" font-weight="700" fill="#0A1628">DesktopShell</text>
+<text x="62" y="394" font-size="19" fill="#172B43"><tspan x="62">Owns the in-memory queue</tspan><tspan x="62" dy="26">and current entry</tspan></text>
+<path d="M 62 444 L 330 444" stroke="#B0C9DD" stroke-width="2"/>
+<text x="62" y="478" font-size="18" fill="#172B43"><tspan x="62">Chooses the track; displays</tspan><tspan x="62" dy="24">progress and spectrum</tspan></text>
+<text x="62" y="533" font-size="18" fill="#172B43"><tspan x="62">Advances the queue once</tspan><tspan x="62" dy="24">on normal completion</tspan></text>
+<rect x="54" y="580" width="284" height="44" rx="7" fill="#E2E8EF"/>
+<text x="66" y="607" font-size="15" fill="#263A50">WindowsDesktop: WPF code-behind</text>
+</g>
+</g>
+
+<g class="domain" data-label="Transport" data-grade="declared">
+<rect x="478" y="180" width="1038" height="558" rx="14" fill="#E7F7F4" stroke="#28AFA3" stroke-width="3"/>
+<text x="502" y="230" font-size="35" font-weight="700" fill="#074A50">Transport</text>
+<text x="502" y="263" font-size="23" fill="#475366">Audio control and notifications</text>
+<g class="service" data-label="PlayTrack" data-grade="declared">
+<rect x="495" y="350" width="176" height="136" rx="14" fill="#F6F9FA" stroke="#078C80" stroke-width="2.5"/>
+<text x="513" y="390" font-size="25" font-weight="700" fill="#101D30">PlayTrack</text>
+<rect x="507" y="405" width="152" height="65" rx="7" fill="#E6EBF0"/>
+<text x="519" y="430" font-size="15" fill="#263A50"><tspan x="519">PlaybackRequest:</tspan><tspan x="519" dy="23">requestId, trackId</tspan></text>
+</g>
+<g class="service" data-label="Playback" data-grade="declared">
+<rect x="780" y="312" width="344" height="340" rx="17" fill="#DFF2EF" stroke="#008779" stroke-width="2.5"/>
+<text x="803" y="359" font-size="31" font-weight="700" fill="#0A1628">Playback</text>
+<text x="803" y="391" font-size="19" fill="#172B43"><tspan x="803">Owns decoder, audio output</tspan><tspan x="803" dy="25">and transport controls</tspan></text>
+<path d="M 800 435 L 1103 435" stroke="#B4CED1" stroke-width="2"/>
+<text x="800" y="461" font-size="14" fill="#172B43">Position · pause/resume · seek · stop · volume</text>
+<text x="800" y="489" font-size="16" fill="#172B43"><tspan x="800">Spectrum analysis: decoded samples</tspan><tspan x="800" dy="21">before volume scaling</tspan></text>
+<text x="800" y="537" font-size="14" fill="#172B43">Reports completion separately from failure</text>
+<text x="800" y="562" font-size="15" fill="#172B43">Discards superseded output callbacks</text>
+<rect x="794" y="579" width="316" height="58" rx="7" fill="#E0E8ED"/>
+<text x="806" y="601" font-size="13" fill="#263A50"><tspan x="806">WindowsDesktop: NAudio 2.2.1</tspan><tspan x="806" dy="20">MediaFoundationReader → WASAPI shared mode</tspan></text>
+</g>
+<g class="service" data-label="PlaybackStateChanged" data-grade="declared">
+<rect x="1220" y="347" width="280" height="255" rx="15" fill="#F6F9FA" stroke="#008779" stroke-width="2.5"/>
+<text x="1236" y="384" font-size="22" font-weight="700" letter-spacing="-0.7" fill="#101D30">PlaybackStateChanged</text>
+<rect x="1234" y="402" width="252" height="64" rx="7" fill="#E6EBF0"/>
+<text x="1246" y="426" font-size="15" fill="#263A50"><tspan x="1246">PlaybackResult:</tspan><tspan x="1246" dy="23">requestId, trackId, state, detail</tspan></text>
+<path d="M 1236 482 L 1485 482" stroke="#BDCED8" stroke-width="2"/>
+<text x="1240" y="510" font-size="17" fill="#172B43">Preserves the requestId</text>
+<rect x="1234" y="530" width="252" height="57" rx="7" fill="#E6EBF0"/>
+<text x="1246" y="553" font-size="15" fill="#263A50"><tspan x="1246">WindowsDesktop: in-process</tspan><tspan x="1246" dy="21">notification</tspan></text>
+</g>
+</g>
+
+<g class="edge" data-from="DesktopShell" data-to="PlayTrack" data-kind="derived">
+<path d="M 352 417 L 495 417" fill="none" stroke="#647789" stroke-width="2.5" stroke-dasharray="6 5" marker-end="url(#weak)"/>
+<text x="423" y="396" text-anchor="middle" font-size="17" fill="#263A50" paint-order="stroke" stroke="#FFFFFF" stroke-width="6">Chosen track</text>
+</g>
+<g class="edge" data-from="PlayTrack" data-to="Playback">
+<path d="M 671 417 L 780 417" fill="none" stroke="#223346" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="725" y="396" text-anchor="middle" font-size="17" fill="#263A50" paint-order="stroke" stroke="#FFFFFF" stroke-width="6">handled by</text>
+</g>
+<g class="edge" data-from="Playback" data-to="PlaybackStateChanged">
+<path d="M 1124 417 L 1220 417" fill="none" stroke="#223346" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="1172" y="396" text-anchor="middle" font-size="17" fill="#263A50" paint-order="stroke" stroke="#FFFFFF" stroke-width="6">publishes</text>
+</g>
+<g class="edge" data-from="PlaybackStateChanged" data-to="DesktopShell">
+<path d="M 1374 602 L 1374 677 Q 1374 690 1361 690 L 201 690 Q 188 690 188 677 L 188 640" fill="none" stroke="#223346" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="768" y="718" text-anchor="middle" font-size="18" fill="#263A50" paint-order="stroke" stroke="#FFFFFF" stroke-width="6">received by</text>
+</g>
+
+<g class="legend" data-label="Arrows">
+<text x="43" y="824" font-size="26" font-weight="700" fill="#101D30">Arrows</text>
+<path d="M 44 860 L 150 860" fill="none" stroke="#223346" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="175" y="866" font-size="17" fill="#263A50">Solid: stated in the model</text>
+<path d="M 44 902 L 150 902" fill="none" stroke="#647789" stroke-width="2.5" stroke-dasharray="6 5" marker-end="url(#weak)"/>
+<text x="175" y="908" font-size="17" fill="#263A50">Dashed: follows from the model, not stated in it</text>
+</g>
+<g class="service" data-label="Dashed arrow: inferred command handoff" data-grade="speculative">
+<rect x="1030" y="914" width="466" height="56" rx="9" fill="#FFFFFF" stroke="#AAB9C4" stroke-width="1.5" stroke-dasharray="2 4"/>
+<text x="1046" y="948" font-size="20" fill="#384A5B">Dashed arrow: inferred command handoff</text>
+</g>
+</svg>

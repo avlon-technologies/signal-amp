@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1536" height="1024" viewBox="0 0 1536 1024" font-family="Inter, 'Segoe UI', Arial, sans-serif">
+<title>Signal Amp MVP — confirmed MP3 import</title>
+<desc>Confirmed import flows through Catalog to ImportFinished and DesktopShell. Catalog accesses durable Library storage. A separate unconnected note describes permitted import policy.</desc>
+<defs>
+<marker id="arrow" orient="auto" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="12" refY="6"><path d="M 0 0 L 12 6 L 0 12 Z" fill="#173E6B"/></marker>
+</defs>
+<rect x="0" y="0" width="1536" height="1024" fill="#FFFFFF"/>
+<text x="768" y="57" text-anchor="middle" font-size="44" font-weight="750" fill="#0B2348">Signal Amp MVP — confirmed MP3 import</text>
+<text x="768" y="98" text-anchor="middle" font-size="27" fill="#587294">Catalog writes the Library and notifies DesktopShell • WindowsDesktop</text>
+
+<g class="domain" data-label="Collection" data-grade="declared">
+<rect x="27" y="124" width="1100" height="708" rx="18" fill="#EFF6FC" stroke="#829FBC" stroke-width="2"/>
+<text x="53" y="170" font-size="34" font-weight="700" fill="#0B2348">Collection</text>
+<text x="53" y="200" font-size="23" fill="#526D91">Import handling and durable catalog storage</text>
+
+<g class="service" data-label="ImportSelection" data-grade="declared">
+<rect x="53" y="234" width="282" height="138" rx="12" fill="#193F6D" stroke="#15365F" stroke-width="2"/>
+<text x="194" y="273" text-anchor="middle" font-family="Consolas, monospace" font-size="24" font-weight="700" fill="#FFFFFF">ImportSelection</text>
+<rect x="65" y="290" width="258" height="68" rx="8" fill="#DFEEF9"/>
+<text x="83" y="316" font-family="Consolas, monospace" font-size="19" fill="#102B50"><tspan x="83">ImportRequest:</tspan><tspan x="83" dy="25">location, requestId</tspan></text>
+</g>
+
+<g class="service" data-label="Catalog" data-grade="declared">
+<rect x="465" y="234" width="280" height="275" rx="12" fill="#193F6D" stroke="#15365F" stroke-width="2"/>
+<text x="605" y="273" text-anchor="middle" font-size="28" font-weight="700" fill="#FFFFFF">Catalog</text>
+<rect x="477" y="290" width="256" height="65" rx="8" fill="#DFEEF9"/>
+<text x="491" y="316" font-size="19" fill="#102B50"><tspan x="491">Imports confirmed MP3s</tspan><tspan x="491" dy="24">individually</tspan></text>
+<text x="482" y="383" font-size="17" fill="#FFFFFF">Sole Library writer</text>
+<text x="482" y="411" font-size="17" fill="#FFFFFF"><tspan x="482">Same stored path retains</tspan><tspan x="482" dy="22">track identity; source audio</tspan><tspan x="482" dy="22">untouched</tspan></text>
+<text x="482" y="486" font-size="17" fill="#FFFFFF">Completion preserves requestId</text>
+</g>
+
+<g class="service" data-label="ImportFinished" data-grade="declared">
+<rect x="854" y="234" width="250" height="196" rx="12" fill="#193F6D" stroke="#15365F" stroke-width="2"/>
+<text x="979" y="273" text-anchor="middle" font-family="Consolas, monospace" font-size="23" font-weight="700" fill="#FFFFFF">ImportFinished</text>
+<rect x="866" y="290" width="226" height="68" rx="8" fill="#DFEEF9"/>
+<text x="881" y="316" font-family="Consolas, monospace" font-size="18" fill="#102B50"><tspan x="881">ImportResult:</tspan><tspan x="881" dy="25">requestId, detail</tspan></text>
+<text x="879" y="398" font-size="18" fill="#FFFFFF">In-process notification</text>
+</g>
+
+<g class="service" data-label="Library" data-grade="declared">
+<rect x="351" y="605" width="531" height="202" rx="25" fill="#B7DCDD" stroke="#286471" stroke-width="2"/>
+<path d="M 352 630 C 435 656 798 656 881 630" fill="none" stroke="#286471" stroke-width="2"/>
+<text x="616" y="682" text-anchor="middle" font-size="29" font-weight="700" fill="#12373E">Library</text>
+<text x="375" y="710" font-size="19" fill="#102B50"><tspan x="375">File references and cached title, artist, duration</tspan></text>
+<text x="375" y="742" font-size="18" fill="#102B50">Durable • strong consistency</text>
+<text x="375" y="766" font-family="Consolas, monospace" font-size="15" fill="#102B50">SQLite • %LOCALAPPDATA%/MusicPlayer/library.sqlite3</text>
+<text x="375" y="790" font-size="18" fill="#102B50">Audio stays in listener-selected locations</text>
+</g>
+</g>
+
+<g class="domain" data-label="UserInterface" data-grade="declared">
+<rect x="1149" y="124" width="362" height="708" rx="18" fill="#EFF6FC" stroke="#829FBC" stroke-width="2"/>
+<text x="1180" y="170" font-size="33" font-weight="700" fill="#0B2348">UserInterface</text>
+<text x="1180" y="200" font-size="23" fill="#526D91">Staged import presentation</text>
+<g class="service" data-label="DesktopShell" data-grade="declared">
+<rect x="1244" y="234" width="249" height="238" rx="12" fill="#193F6D" stroke="#15365F" stroke-width="2"/>
+<text x="1368" y="273" text-anchor="middle" font-size="26" font-weight="700" fill="#FFFFFF">DesktopShell</text>
+<rect x="1256" y="290" width="225" height="68" rx="8" fill="#DFEEF9"/>
+<text x="1269" y="330" font-size="18" fill="#102B50">Presents staged import</text>
+<text x="1260" y="393" font-size="18" fill="#FFFFFF"><tspan x="1260">Retry: keeps failed</tspan><tspan x="1260" dy="25">import items available</tspan></text>
+</g>
+</g>
+
+<g class="edge" data-from="ImportSelection" data-to="Catalog">
+<path d="M 335 303 L 465 303" fill="none" stroke="#173E6B" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="400" y="284" text-anchor="middle" font-size="19" font-weight="600" fill="#173E6B" paint-order="stroke" stroke="#FFFFFF" stroke-width="6">handled by</text>
+</g>
+<g class="edge" data-from="Catalog" data-to="ImportFinished">
+<path d="M 745 303 L 854 303" fill="none" stroke="#173E6B" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="799" y="284" text-anchor="middle" font-size="19" font-weight="600" fill="#173E6B" paint-order="stroke" stroke="#FFFFFF" stroke-width="6">publishes</text>
+</g>
+<g class="edge" data-from="ImportFinished" data-to="DesktopShell">
+<path d="M 1104 303 L 1244 303" fill="none" stroke="#173E6B" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="1174" y="284" text-anchor="middle" font-size="19" font-weight="600" fill="#173E6B" paint-order="stroke" stroke="#FFFFFF" stroke-width="6">received by</text>
+</g>
+<g class="edge" data-from="Catalog" data-to="Library">
+<path d="M 535 509 L 535 605" fill="none" stroke="#173E6B" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="520" y="558" text-anchor="end" font-size="18" font-weight="600" fill="#173E6B" paint-order="stroke" stroke="#FFFFFF" stroke-width="6">reads + writes</text>
+</g>
+
+<g class="service" data-label="Import policy — permitted" data-grade="declared">
+<rect x="34" y="860" width="810" height="137" rx="12" fill="#EFF5F0" stroke="#6C938B" stroke-width="2"/>
+<text x="59" y="902" font-size="28" font-weight="700" fill="#0B2348">Import policy — permitted</text>
+<text x="59" y="939" font-size="20" fill="#183653"><tspan x="59">Review selected MP3s and remove entries before confirming</tspan></text>
+<text x="59" y="973" font-size="19" fill="#183653">Successful tracks become available for listening; a failed file can be retried</text>
+</g>
+</svg>

@@ -14,6 +14,10 @@ dotnet run --project WindowsMp3Player.csproj
 
 One listener on one Windows x64 desktop can stage local MP3 imports, control playback and volume, seek with the dial, and manage named, ordered playlists. The player displays the title, optional artist, elapsed time and a live spectrum. The local catalog stores file references and metadata while the listener retains the original files. The active queue is in memory.
 
+## Architecture handoff
+
+See [the ownership, import, and playback diagrams](continuum/diagrams/README.md).
+
 ## Model and binding validation
 
 - ADL compiled with 78 checks passed, zero errors and zero warnings.
