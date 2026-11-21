@@ -1,0 +1,24 @@
+{
+    "acceptance-scenario":  "1",
+    "name":  "library-play",
+    "purpose":  "Playing a selected library track starts audio and displays its title.",
+    "environment":  "::MusicPlayer.WindowsDesktop",
+    "verifies":  [
+                     "::MusicPlayer.Listening.Transport.PlayTrack"
+                 ],
+    "given":  [
+
+              ],
+    "when":  [
+
+             ],
+    "then":  [
+                 {
+                     "args":  {
+                                  "probe":  "play"
+                              },
+                     "step":  "signalAmp.runProbe",
+                     "text":  "Playing a selected library track starts audio and displays its title."
+                 }
+             ]
+}

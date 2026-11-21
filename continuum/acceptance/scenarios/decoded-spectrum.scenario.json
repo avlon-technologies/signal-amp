@@ -1,0 +1,24 @@
+{
+    "acceptance-scenario":  "1",
+    "name":  "decoded-spectrum",
+    "purpose":  "A decoded MP3 drives the spectrum and completes through the Windows audio output.",
+    "environment":  "::MusicPlayer.WindowsDesktop",
+    "verifies":  [
+                     "::MusicPlayer.Listening.Transport.PlaybackStateChanged"
+                 ],
+    "given":  [
+
+              ],
+    "when":  [
+
+             ],
+    "then":  [
+                 {
+                     "args":  {
+                                  "probe":  "spectrum"
+                              },
+                     "step":  "signalAmp.runProbe",
+                     "text":  "A decoded MP3 drives the spectrum and completes through the Windows audio output."
+                 }
+             ]
+}

@@ -1,0 +1,24 @@
+{
+    "acceptance-scenario":  "1",
+    "name":  "playlist-persistence",
+    "purpose":  "Ordered playlists preserve repeated tracks and survive reopening and relinking.",
+    "environment":  "::MusicPlayer.WindowsDesktop",
+    "verifies":  [
+                     "::MusicPlayer.Listening.Collection.Library"
+                 ],
+    "given":  [
+
+              ],
+    "when":  [
+
+             ],
+    "then":  [
+                 {
+                     "args":  {
+                                  "probe":  "catalog"
+                              },
+                     "step":  "signalAmp.runProbe",
+                     "text":  "Ordered playlists preserve repeated tracks and survive reopening and relinking."
+                 }
+             ]
+}

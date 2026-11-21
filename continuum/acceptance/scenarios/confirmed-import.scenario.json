@@ -1,0 +1,24 @@
+{
+    "acceptance-scenario":  "1",
+    "name":  "confirmed-import",
+    "purpose":  "A confirmed file enters the local library and playback queue once.",
+    "environment":  "::MusicPlayer.WindowsDesktop",
+    "verifies":  [
+                     "::MusicPlayer.Listening.Collection.ImportSelection"
+                 ],
+    "given":  [
+
+              ],
+    "when":  [
+
+             ],
+    "then":  [
+                 {
+                     "args":  {
+                                  "probe":  "import"
+                              },
+                     "step":  "signalAmp.runProbe",
+                     "text":  "A confirmed file enters the local library and playback queue once."
+                 }
+             ]
+}

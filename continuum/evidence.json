@@ -1,0 +1,39 @@
+{
+    "continuum-evidence":  "continuum-evidence/1",
+    "normative":  false,
+    "package":  "desktop.musicplayer",
+    "anchored":  null,
+    "subject":  null,
+    "elements":  {
+                     "1658f1eb-1b9a-445b-8554-c87d2c9d0aec":  {
+                                                                  "status":  "derived",
+                                                                  "name":  "::MusicPlayer.Listening.UserInterface.DesktopShell",
+                                                                  "citations":  [
+                                                                                    {
+                                                                                        "ref":  "PlayerWindow.cs"
+                                                                                    }
+                                                                                ],
+                                                                  "kind":  "Service"
+                                                              },
+                     "1ba4212d-e7cd-411d-81d2-bcd7e88f394b":  {
+                                                                  "status":  "derived",
+                                                                  "name":  "::MusicPlayer.Listening.Collection.Catalog",
+                                                                  "citations":  [
+                                                                                    {
+                                                                                        "ref":  "Catalog.cs"
+                                                                                    }
+                                                                                ],
+                                                                  "kind":  "Service"
+                                                              },
+                     "e0f53da7-0e55-420b-85cf-3e7a2f840be9":  {
+                                                                  "status":  "derived",
+                                                                  "name":  "::MusicPlayer.Listening.Transport.Playback",
+                                                                  "citations":  [
+                                                                                    {
+                                                                                        "ref":  "Playback.cs"
+                                                                                    }
+                                                                                ],
+                                                                  "kind":  "Service"
+                                                              }
+                 }
+}
