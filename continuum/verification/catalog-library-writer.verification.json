@@ -1,0 +1,105 @@
+{
+    "continuum-verification":  "continuum-verification/0",
+    "name":  "catalog-library-writer",
+    "verifies":  [
+                     "::MusicPlayer.Listening.Collection.Library"
+                 ],
+    "expectation":  "Only the Catalog service writes the application library.",
+    "run":  {
+                "module":  "continuum/verifiers/catalog-library-writer.mjs",
+                "args":  [
+                             "--implementation",
+                             "${IMPLEMENTATION}",
+                             "--result",
+                             "${RESULT}",
+                             "--out",
+                             "${OUT}",
+                             "--commit",
+                             "${COMMIT}",
+                             "--tree",
+                             "${TREE}",
+                             "--attestation",
+                             "${ATTESTATION}",
+                             "--change-state",
+                             "${CHANGE_STATE}"
+                         ]
+            },
+    "attestation":  {
+                        "profile":  "continuum-claim-spec/0",
+                        "id":  "catalog-library-writer",
+                        "version":  "2",
+                        "rubric":  "continuum-claim-rubric/3",
+                        "claim":  {
+                                      "language":  "adl",
+                                      "kind":  "resource-writers",
+                                      "element":  "7d6e2cd5-0a59-4ef8-9ce7-13866b973ce5"
+                                  },
+                        "boundary":  {
+                                         "statement":  "Direct ExecuteNonQuery call sites in the application\u0027s C# source for the SQLite Library.",
+                                         "excludes":  [
+                                                          {
+                                                              "why":  "The verifier scopes its lexical check to direct ExecuteNonQuery call sites in the Signal Amp implementation.",
+                                                              "what":  "Other write mechanisms and external processes"
+                                                          }
+                                                      ]
+                                     },
+                        "scope":  {
+                                      "discovery":  "Enumerate C# source and attribute direct ExecuteNonQuery call sites to Catalog or flag them as outside the Catalog owner.",
+                                      "concurrency":  false,
+                                      "concurrencyStatement":  "The verifier observes source-level ownership."
+                                  },
+                        "checks":  [
+                                       {
+                                           "id":  "sqlite-sites",
+                                           "kind":  "scope",
+                                           "method":  "static-lexical",
+                                           "qualifies":  [
+                                                             "L2"
+                                                         ],
+                                           "statement":  "All direct SQLite command execution sites in scope can be attributed.",
+                                           "criterion":  {
+                                                             "scopeComplete":  true
+                                                         }
+                                       },
+                                       {
+                                           "id":  "catalog-writer",
+                                           "kind":  "structural",
+                                           "method":  "static-lexical",
+                                           "qualifies":  [
+                                                             "L1",
+                                                             "L2"
+                                                         ],
+                                           "statement":  "Attribute the observed SQLite write site and let the Host compare its owner with the ADL.",
+                                           "criterion":  {
+                                                             "writersWithinDeclared":  true
+                                                         }
+                                       }
+                                   ],
+                        "violations":  [
+                                           {
+                                               "class":  "undeclared-writer",
+                                               "statement":  "A module other than Catalog executes direct SQLite write commands."
+                                           }
+                                       ],
+                        "challenges":  [
+                                           {
+                                               "id":  "desktop-shell-writes-library",
+                                               "class":  "undeclared-writer",
+                                               "change":  {
+                                                              "patch":  "continuum/challenges/desktop-shell-writes-library.patch",
+                                                              "files":  [
+                                                                            "Program.cs"
+                                                                        ],
+                                                              "digest":  "sha256:61c1fa440a90ec0d666efad8cae0962369377988310b650ba00eb4b9feb81ea3"
+                                                          },
+                                               "kind":  "deliberate-fault",
+                                               "expect":  {
+                                                              "path":  "Program.cs",
+                                                              "reason":  "DesktopShell is outside the declared set of Library writers.",
+                                                              "check":  "catalog-writer"
+                                                          },
+                                               "statement":  "A direct SQL write path is added to the desktop entry point outside Catalog."
+                                           }
+                                       ]
+                    }
+}

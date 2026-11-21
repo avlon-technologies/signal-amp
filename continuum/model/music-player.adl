@@ -1,0 +1,63 @@
+document semantic at :: {
+ system MusicPlayer #8f57a43b-6cad-408f-9a70-17b3e44925af {
+  desc "Signal Amp MVP plays local MP3 files and maintains one listener's library and playlists on a Windows desktop."
+  actor DesktopMaintainer #00ecceab-7b50-42ab-8f54-8d5e58da6aca [team] {
+   desc "Owns the desktop application's playback and library modules."
+   owns: ::MusicPlayer.Listening.UserInterface, ::MusicPlayer.Listening.Transport, ::MusicPlayer.Listening.Collection
+  }
+  domain Listening #1682a3ca-d2ec-40aa-b5d1-d38e383c021a {
+   classification = core
+   capability Listen #ea908426-018d-4ac6-843d-85ef4f864916 { desc "Play selected tracks and control playback." }
+   capability Organize #cc4da69a-cb09-4882-ac42-e10e148acc1a { desc "Find imported tracks and maintain ordered playlists." }
+   bounded-context UserInterface #296b58b8-9944-4ec5-ac74-6fda3c402018 {
+    service DesktopShell #1658f1eb-1b9a-445b-8554-c87d2c9d0aec {
+     desc "Owns the in-memory playback queue and current entry. Presents a compact player, staged import, and a playlist manager. The shell calls Playback with the chosen track and advances the queue once on normal completion. It displays title, optional artist, elapsed time, progress and the audio spectrum. It keeps failed import items available to retry and reports recoverable playback errors."
+     subscribesTo: ::MusicPlayer.Listening.Transport.PlaybackStateChanged, ::MusicPlayer.Listening.Collection.ImportFinished
+     deployedAs: ::MusicPlayer.Desktop
+     on ::MusicPlayer.Listening.Transport.PlaybackStateChanged -> none
+     on ::MusicPlayer.Listening.Collection.ImportFinished -> none
+    }
+   }
+   bounded-context Transport #ab53bcc7-b45f-495e-b1e7-473f7cf2054d {
+    realizes: ::MusicPlayer.Listening.Listen
+    record PlaybackRequest v1 #b89f4748-877f-4522-afb0-e1cace9d98e5 { requestId: text, trackId: text }
+    record PlaybackResult v1 #6101149b-af71-4181-8be6-33227871dc01 { requestId: text, trackId: text, state: text, detail: text }
+    command PlayTrack #1d1e4507-0623-4155-8c2a-8ce494f737e2 { payload = PlaybackRequest }
+    event PlaybackStateChanged #e5423c07-553b-4d85-8b40-873b7a5d0812 { payload = PlaybackResult }
+    service Playback #e0f53da7-0e55-420b-85cf-3e7a2f840be9 {
+     desc "Owns decoder and audio output, position, pause, resume, seek, stop and volume. Analyzes decoded samples before volume scaling. Operates on track references supplied by the shell. A superseded output callback is discarded. Reports normal completion separately from playback failure so the shell can decide whether to advance."
+     realizes: ::MusicPlayer.Listening.Listen
+     handles: PlayTrack
+     publishes: PlaybackStateChanged
+     deployedAs: ::MusicPlayer.Desktop
+     on PlayTrack -> PlaybackStateChanged
+      correlate PlaybackStateChanged payload.requestId = payload.requestId
+    }
+   }
+   bounded-context Collection #a2fd373c-7185-434c-85f8-acacb43e8980 {
+    realizes: ::MusicPlayer.Listening.Organize
+    record ImportRequest v1 #65ed565a-71af-4077-ba98-060f5c57a7bb { requestId: text, location: text }
+    record ImportResult v1 #cfad110d-8165-4517-bf97-f4db37e774a1 { requestId: text, detail: text }
+    command ImportSelection #38af3ed5-5ec6-4b12-ab80-9f7dc4c29cae { payload = ImportRequest }
+    event ImportFinished #c2848152-71a9-40d8-bf9b-60f63421cffa { payload = ImportResult }
+    resource Library #7d6e2cd5-0a59-4ef8-9ce7-13866b973ce5 [data-store] {
+     desc "Stores local file references, cached title, artist and duration, named playlists, ordered playlist entries and a log of catalog edits. Audio files remain in listener-selected locations. The active queue is held in memory."
+     persistence[durable; strong]
+    }
+    service Catalog #1ba4212d-e7cd-411d-81d2-bcd7e88f394b {
+     desc "Sole writer of the library. Imports confirmed MP3s individually, preserves track identity for the same stored path and leaves source audio untouched. Stores ordered playlist entries with repeated tracks. Renames and replaces playlists transactionally. Relinking updates the path without changing the track identity or playlist positions."
+     realizes: ::MusicPlayer.Listening.Organize
+     handles: ImportSelection
+     publishes: ImportFinished
+     reads: Library
+     writes: Library
+     deployedAs: ::MusicPlayer.Desktop
+     on ImportSelection -> ImportFinished
+      correlate ImportFinished payload.requestId = payload.requestId
+    }
+   }
+  }
+  deployable Desktop #50a81072-9a0e-4848-8c99-03f729a80a8d { desc "One desktop process with a keyboard-accessible shell and background import and playback work." }
+  environment WindowsDesktop #feba7ad7-90d4-4773-9efa-866781b4b193 { desc "One per-user installation on a Windows PC, operating offline." }
+ }
+}

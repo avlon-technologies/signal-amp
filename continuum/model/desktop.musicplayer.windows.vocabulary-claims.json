@@ -1,0 +1,52 @@
+{
+  "adl-json": "adl-json/1.0",
+  "vocabulary-claims": {
+    "vocabulary": "desktop.musicplayer.windows",
+    "version": "draft-1",
+    "technologies": {
+      "wpf-desktop": {
+        "claims": [],
+        "configuration": {
+          "language": "atom",
+          "runtime": "atom",
+          "framework": "atom"
+        }
+      },
+      "wpf-code-behind": {
+        "claims": [],
+        "configuration": {}
+      },
+      "windows-audio": {
+        "claims": [],
+        "configuration": {
+          "decoder": "atom",
+          "output": "atom"
+        }
+      },
+      "local-catalog": {
+        "claims": [],
+        "configuration": {
+          "metadata": "atom",
+          "storageProvider": "atom"
+        }
+      },
+      "sqlite-library": {
+        "claims": [
+          "PersistenceExpectation.durability/durable",
+          "PersistenceExpectation.consistency/strong",
+          "retention-honored",
+          "erasure-capable",
+          "access-controlled",
+          "auditable"
+        ],
+        "configuration": {
+          "file": "atom"
+        }
+      },
+      "in-process-notification": {
+        "claims": [],
+        "configuration": {}
+      }
+    }
+  }
+}

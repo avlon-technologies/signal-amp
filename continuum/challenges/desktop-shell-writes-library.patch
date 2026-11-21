@@ -1,0 +1,11 @@
+diff --git a/Program.cs b/Program.cs
+--- a/Program.cs
++++ b/Program.cs
+@@ -7,5 +7,7 @@
+ internal static class Program
+ {
++    private static void BypassCatalog(Microsoft.Data.Sqlite.SqliteCommand command) => command.ExecuteNonQuery();
++
+     [STAThread]
+     private static int Main(string[] args)
+     {

@@ -1,0 +1,153 @@
+{
+    "adl-json":  "adl-json/1.0",
+    "document":  {
+                     "universe":  "binding",
+                     "base":  {
+                                  "package":  "desktop.musicplayer",
+                                  "version":  "draft-1",
+                                  "canonicalModel":  "sha256:e3e28661c7808588fe5657f19c838fc781e02d62952a8972cb7da4d49abc39e7"
+                              },
+                     "vocabularies":  [
+                                          {
+                                              "name":  "desktop.musicplayer.windows",
+                                              "version":  "draft-1"
+                                          }
+                                      ],
+                     "environment":  {
+                                         "ref":  "feba7ad7-90d4-4773-9efa-866781b4b193",
+                                         "hint":  "MusicPlayer.WindowsDesktop"
+                                     },
+                     "bindings":  [
+                                      {
+                                          "kind":  "Binding",
+                                          "id":  "1c0f551c-3e4f-4137-90ff-3487a6990bbb",
+                                          "name":  "B1",
+                                          "attributes":  {
+                                                             "vocabulary":  "desktop.musicplayer.windows",
+                                                             "technology":  "wpf-desktop",
+                                                             "configuration":  {
+                                                                                   "language":  "C#",
+                                                                                   "runtime":  ".NET 10",
+                                                                                   "framework":  "WPF"
+                                                                               }
+                                                         },
+                                          "relationships":  {
+                                                                "binds":  {
+                                                                              "ref":  "50a81072-9a0e-4848-8c99-03f729a80a8d",
+                                                                              "hint":  "MusicPlayer.Desktop"
+                                                                          }
+                                                            }
+                                      },
+                                      {
+                                          "kind":  "Binding",
+                                          "id":  "6dfa385b-fce4-491b-bb75-2d2bac4a5cf0",
+                                          "name":  "B2",
+                                          "attributes":  {
+                                                             "vocabulary":  "desktop.musicplayer.windows",
+                                                             "technology":  "wpf-code-behind",
+                                                             "configuration":  {
+
+                                                                               }
+                                                         },
+                                          "relationships":  {
+                                                                "binds":  {
+                                                                              "ref":  "1658f1eb-1b9a-445b-8554-c87d2c9d0aec",
+                                                                              "hint":  "MusicPlayer.Listening.UserInterface.DesktopShell"
+                                                                          }
+                                                            }
+                                      },
+                                      {
+                                          "kind":  "Binding",
+                                          "id":  "4d701782-8b8b-428b-b116-989b1eeba318",
+                                          "name":  "B3",
+                                          "attributes":  {
+                                                             "vocabulary":  "desktop.musicplayer.windows",
+                                                             "technology":  "windows-audio",
+                                                             "configuration":  {
+                                                                                   "decoder":  "NAudio 2.2.1 MediaFoundationReader",
+                                                                                   "output":  "NAudio 2.2.1 WASAPI shared mode"
+                                                                               }
+                                                         },
+                                          "relationships":  {
+                                                                "binds":  {
+                                                                              "ref":  "e0f53da7-0e55-420b-85cf-3e7a2f840be9",
+                                                                              "hint":  "MusicPlayer.Listening.Transport.Playback"
+                                                                          }
+                                                            }
+                                      },
+                                      {
+                                          "kind":  "Binding",
+                                          "id":  "28004c88-b7bd-4c04-923e-bdbcd7ff2900",
+                                          "name":  "B4",
+                                          "attributes":  {
+                                                             "vocabulary":  "desktop.musicplayer.windows",
+                                                             "technology":  "local-catalog",
+                                                             "configuration":  {
+                                                                                   "metadata":  "TagLibSharp 2.3.0",
+                                                                                   "storageProvider":  "Microsoft.Data.Sqlite 10.0.14"
+                                                                               }
+                                                         },
+                                          "relationships":  {
+                                                                "binds":  {
+                                                                              "ref":  "1ba4212d-e7cd-411d-81d2-bcd7e88f394b",
+                                                                              "hint":  "MusicPlayer.Listening.Collection.Catalog"
+                                                                          }
+                                                            }
+                                      },
+                                      {
+                                          "kind":  "Binding",
+                                          "id":  "2abcddc3-5a6b-49f9-b52e-9068da116449",
+                                          "name":  "B5",
+                                          "attributes":  {
+                                                             "vocabulary":  "desktop.musicplayer.windows",
+                                                             "technology":  "sqlite-library",
+                                                             "configuration":  {
+                                                                                   "file":  "%LOCALAPPDATA%/MusicPlayer/library.sqlite3"
+                                                                               }
+                                                         },
+                                          "relationships":  {
+                                                                "binds":  {
+                                                                              "ref":  "7d6e2cd5-0a59-4ef8-9ce7-13866b973ce5",
+                                                                              "hint":  "MusicPlayer.Listening.Collection.Library"
+                                                                          }
+                                                            }
+                                      },
+                                      {
+                                          "kind":  "Binding",
+                                          "id":  "0e4ca61f-92ad-45b2-97ea-61974f879571",
+                                          "name":  "B6",
+                                          "attributes":  {
+                                                             "vocabulary":  "desktop.musicplayer.windows",
+                                                             "technology":  "in-process-notification",
+                                                             "configuration":  {
+
+                                                                               }
+                                                         },
+                                          "relationships":  {
+                                                                "binds":  {
+                                                                              "ref":  "e5423c07-553b-4d85-8b40-873b7a5d0812",
+                                                                              "hint":  "MusicPlayer.Listening.Transport.PlaybackStateChanged"
+                                                                          }
+                                                            }
+                                      },
+                                      {
+                                          "kind":  "Binding",
+                                          "id":  "588b4d83-b61c-4d5f-a62f-704519ed3057",
+                                          "name":  "B7",
+                                          "attributes":  {
+                                                             "vocabulary":  "desktop.musicplayer.windows",
+                                                             "technology":  "in-process-notification",
+                                                             "configuration":  {
+
+                                                                               }
+                                                         },
+                                          "relationships":  {
+                                                                "binds":  {
+                                                                              "ref":  "c2848152-71a9-40d8-bf9b-60f63421cffa",
+                                                                              "hint":  "MusicPlayer.Listening.Collection.ImportFinished"
+                                                                          }
+                                                            }
+                                      }
+                                  ]
+                 }
+}

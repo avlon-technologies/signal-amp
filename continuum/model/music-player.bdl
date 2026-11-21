@@ -1,0 +1,71 @@
+model {
+ bdl 1.0
+ types adl-type/1.0
+ expressions adl-expr/1.0
+ definition "music-player.1"
+}
+
+business LocalListening #b-0001 {
+ description "Signal Amp MVP supports listening to a personal MP3 collection."
+ purpose { "Listen to personally selected tracks and save listening orders for reuse." }
+ actor Listener [external-party] #a-0001 { }
+ domain MusicCollection #d-0001 {
+  capability Listening #c-0001 { purpose { "Control the current performance and choose what plays next." } }
+  capability Curation #c-0002 { purpose { "Keep ordered selections for future listening." } }
+  entity Track #en-0001 {
+   identity trackId
+   trackId: text
+   title: text
+   artist: text
+  }
+  entity Playlist #en-0002 {
+   identity playlistId
+   playlistId: text
+   name: text
+  }
+  entity PlaylistEntry #en-0003 {
+   identity entryId
+   entryId: text
+   playlist: Playlist
+   track: Track
+   position: integer
+  }
+  action PlayTrack [permitted] #ac-0001 {
+   mayPerform Listener
+   exercises Listening
+  }
+  action ConfirmImport [permitted] #ac-0005 {
+   description "The listener reviews selected MP3s and can remove entries before confirming. Successfully added tracks become available for listening. A failed file can be retried."
+   mayPerform Listener
+   exercises Curation
+  }
+  action LoadPlaylist [permitted] #ac-0006 {
+   description "The listener can browse a playlist and explicitly load its tracks in saved order. The listener chooses when to start listening."
+   mayPerform Listener
+   exercises Listening
+  }
+  action RenamePlaylist [permitted] #ac-0007 {
+   description "Renaming a playlist preserves its membership and order."
+   mayPerform Listener
+   exercises Curation
+   changes Playlist
+  }
+  action SavePlaylist [permitted] #ac-0002 {
+   description "A playlist preserves the listener's chosen order and may contain the same track more than once."
+   mayPerform Listener
+   exercises Curation
+   creates Playlist
+  }
+  action RemovePlaylistEntry [permitted] #ac-0003 {
+   description "Removing an entry leaves the track and any other occurrences available."
+   mayPerform Listener
+   exercises Curation
+  }
+  action RelinkTrack [permitted] #ac-0004 {
+   description "An unavailable track keeps its playlist positions. The listener can restore access by locating the recording."
+   mayPerform Listener
+   exercises Curation
+   changes Track
+  }
+ }
+}
