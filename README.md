@@ -37,10 +37,10 @@ Before distributing the build, run a manual pass for drag and close, volume, key
 
 Run `npm test` on a Windows x64 desktop with the .NET 10 SDK and a working Windows audio endpoint. The suite and the acceptance adapter build and run the real app. The bundled test MP3 is a generated chime. All four tests and four scenarios passed the Host assessment.
 
-The overall verdict remains **INCOMPLETE** because the installed Continuum static reader accepts JavaScript and TypeScript and could not evaluate the three cited C# modules. The evidence map cites the actual C# implementation.
+The static evidence map identifies the C# modules implementing the three services. The Roslyn adapter resolves references in the compiled C# project and emits facts for the Continuum Host to judge. Continuum CLI 0.48.x requires the included acquisition shim because its default static reader only supports JavaScript and TypeScript. The shim runs against an isolated CLI copy and replaces only static fact acquisition.
 
-With an authenticated Continuum CLI and the verifier SDK available in its supported engine path, run:
+With an authenticated Continuum CLI 0.48.x, set CONTINUUM_CLI_ROOT to its installed package directory and run:
 
 ```powershell
-continuum conformance check continuum --application . --require claims,scenarios,tests --min-level catalog-library-writer=L1
+node continuum/adapters/csharp/check.mjs conformance check continuum --application . --require static,claims,scenarios,tests --min-level catalog-library-writer=L1
 ```

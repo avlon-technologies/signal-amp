@@ -11,6 +11,15 @@
                                                                   "citations":  [
                                                                                     {
                                                                                         "ref":  "PlayerWindow.cs"
+                                                                                    },
+                                                                                    {
+                                                                                        "ref":  "ArtworkSkin.cs"
+                                                                                    },
+                                                                                    {
+                                                                                        "ref":  "ImportSkin.cs"
+                                                                                    },
+                                                                                    {
+                                                                                        "ref":  "PlaylistSkin.cs"
                                                                                     }
                                                                                 ],
                                                                   "kind":  "Service"

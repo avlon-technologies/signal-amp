@@ -12,6 +12,7 @@ document semantic at :: {
    bounded-context UserInterface #296b58b8-9944-4ec5-ac74-6fda3c402018 {
     service DesktopShell #1658f1eb-1b9a-445b-8554-c87d2c9d0aec {
      desc "Owns the in-memory playback queue and current entry. Presents a compact player, staged import, and a playlist manager. The shell calls Playback with the chosen track and advances the queue once on normal completion. It displays title, optional artist, elapsed time, progress and the audio spectrum. It keeps failed import items available to retry and reports recoverable playback errors."
+     dependsOn: ::MusicPlayer.Listening.Transport.Playback, ::MusicPlayer.Listening.Collection.Catalog
      subscribesTo: ::MusicPlayer.Listening.Transport.PlaybackStateChanged, ::MusicPlayer.Listening.Collection.ImportFinished
      deployedAs: ::MusicPlayer.Desktop
      on ::MusicPlayer.Listening.Transport.PlaybackStateChanged -> none
@@ -27,6 +28,7 @@ document semantic at :: {
     service Playback #e0f53da7-0e55-420b-85cf-3e7a2f840be9 {
      desc "Owns decoder and audio output, position, pause, resume, seek, stop and volume. Analyzes decoded samples before volume scaling. Operates on track references supplied by the shell. A superseded output callback is discarded. Reports normal completion separately from playback failure so the shell can decide whether to advance."
      realizes: ::MusicPlayer.Listening.Listen
+     dependsOn: ::MusicPlayer.Listening.Collection.Catalog
      handles: PlayTrack
      publishes: PlaybackStateChanged
      deployedAs: ::MusicPlayer.Desktop
