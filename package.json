@@ -2,5 +2,10 @@
   "name": "signal-amp-conformance",
   "version": "1.0.0",
   "private": true,
-  "scripts": { "test": "node --test tests/mvp.test.mjs" }
+  "scripts": {
+    "test": "node --test tests/mvp.test.mjs"
+  },
+  "devDependencies": {
+    "@avlon/continuum-conformance": "^0.3.1"
+  }
 }
