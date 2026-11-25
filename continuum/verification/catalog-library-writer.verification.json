@@ -28,7 +28,7 @@
                         "profile":  "continuum-claim-spec/0",
                         "id":  "catalog-library-writer",
                         "version":  "2",
-                        "rubric":  "continuum-claim-rubric/3",
+                        "rubric":  "continuum-claim-rubric/4",
                         "claim":  {
                                       "language":  "adl",
                                       "kind":  "resource-writers",
